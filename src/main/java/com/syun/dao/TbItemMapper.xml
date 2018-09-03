@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syun.dao.TbItemMapper">
+
+
+    <!--如果数据库中的字段与封装的字段不一致,可以使用resultMap来配置,如下.或者直接使用 as 改变-->
+    <!--解决查询出来时pojo与数据库字段不一致问题 这是第二种方式-->
+    <resultMap id="BaseResultMap" type="com.syun.pojo.TbItem">
+        <result column="sell_point" property="sellPoint" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--&lt;!&ndash;解决更新时,pojo字段与数据库中的字段不一致问题&ndash;&gt;-->
+    <!--<parameterMap id="BaseParameterMap" type="com.syun.pojo.TbItem">-->
+    <!--<parameter property="sellPoint" resultMap="BaseResultMap"/>-->
+
+    <!--</parameterMap>-->
+
+    <!--定义一个sql片段-->
+    <sql id="TbItem_select_column">
+		select id,title,sell_point as sellPoint ,price,num,barcode,image,cid,status,created,updated
+	</sql>
+
+
+    <!--查找全部 表中字段与pojo字段不一致,使用 as 如下 -->
+    <!--resultType 中直接能使用类名，是因为在mybatis-config中配置了别名-->
+    <select id="selectAll" resultType="TbItem">
+        <include refid="TbItem_select_column"></include>
+        from tb_item
+    </select>
+
+    <!--根据id进行查找-->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+      select id,title,sell_point,price,num,barcode,image,cid,status,created,updated
+      from tb_item where id=#{id}
+    </select>
+
+    <!--条件查找-->
+    <!--使用动态sql查找-->
+    <!--where标签相当于where关键字,可以自动处理第一个前and 或者or -->
+    <select id="selectUseCondition" parameterType="com.syun.pojo.TbItem" resultMap="BaseResultMap">
+        select id,title,sell_point,price,num,barcode,image,cid,status,created,updated
+        from tb_item
+        <where>
+            <if test="sellPoint!=null and sellPoint!=''">and sell_point like "%"#{sellPoint}"%"</if>
+            <if test="title!=null and title!=''">and title like "%"#{title}"%"</if>
+        </where>
+    </select>
+
+    <!--动态sql之 choose-when 条件查询-->
+    <!--这种查找方式为按照第一个条件进行查找,后边条件不看,第一个没有才看后边的-->
+    <select id="selectUseCondition2" parameterType="com.syun.pojo.TbItem" resultMap="BaseResultMap">
+        select * from tb_item
+        <where>
+            <choose>
+                <when test="sellPoint!=null and sellPoint!=''">sell_point like "%"#{sellPoint}"%"</when>
+                <when test="title!=null and sellPoint!=''">title like "%"#{title}"%"</when>
+                <otherwise>id=536563</otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--动态sql之set  代替set关键字    set标签可以帮助我们去掉最后一个逗号-->
+    <!--可以直接传入pojo类更新,也可以使用上边的 parameterMap 来将pojo字段与数据库字段统一然后映射.推荐使用直接pojo简单-->
+    <update id="updateByCon" parameterType="com.syun.pojo.TbItem">
+        update tb_item
+        <set>
+            <if test="title!=null and title!=''">title=#{title},</if>
+            <if test="sellPoint!=null and sellPoint!=''">sell_point=#{sellPoint},</if>
+            <if test="price!=null and price!=''">price=#{price},</if>
+            <if test="num!=null and num!=''">num=#{num},</if>
+            <if test="barcode!=null and barcode!=''">barcode=#{barcode},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="cid!=null and cid!=''">cid=#{cid},</if>
+            <if test="status!=null and status!=''">status=#{status},</if>
+            <if test="created!=null and created!=''">created=#{created},</if>
+            <if test="updated!=null and updated!=''">updated=#{updated},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--动态sql 之 trim标签-->
+    <!--
+			prefix:指添加前缀修饰
+			suffix:添加后缀修饰
+			prefixOverrides：去掉前缀修饰
+			suffixOverrides：去掉后缀修饰
+	-->
+    <!--使用trim标签代替where-->
+    <select id="selectByCon_trim" parameterType="com.syun.pojo.TbItem" resultMap="BaseResultMap">
+        <include refid="TbItem_select_column"/>
+        from tb_item
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="sellPoint!=null and sellPoint!=''">and sell_point like "%"#{sellPoint}"%"</if>
+            <if test="title!=null and title!=''">and title like "%"#{title}"%"</if>
+        </trim>
+    </select>
+
+    <!--使用trim标签代替set-->
+    <update id="updateBy_trim" parameterType="com.syun.pojo.TbItem">
+        update tb_item
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="title!=null and title!=''">title=#{title},</if>
+            <if test="sellPoint!=null and sellPoint!=''">sell_point=#{sellPoint},</if>
+            <if test="price!=null and price!=''">price=#{price},</if>
+            <if test="num!=null and num!=''">num=#{num},</if>
+            <if test="barcode!=null and barcode!=''">barcode=#{barcode},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="cid!=null and cid!=''">cid=#{cid},</if>
+            <if test="status!=null and status!=''">status=#{status},</if>
+            <if test="created!=null and created!=''">created=#{created},</if>
+            <if test="updated!=null and updated!=''">updated=#{updated},</if>
+        </trim>
+    </update>
+    <!--插入trim-->
+    <!--定义两个sql片段-->
+    <sql id="insertKey">
+        <trim suffixOverrides=",">
+            <if test="id!=null and id!=''">id,</if>
+            <if test="title!=null and title!=''">title,</if>
+            <if test="sellPoint!=null and sellPoint!=''">sell_point,</if>
+            <if test="price!=null and price!=''">price,</if>
+            <if test="num!=null and num!=''">num,</if>
+            <if test="barcode!=null and barcode!=''">barcode,</if>
+            <if test="image!=null and image!=''">image,</if>
+            <if test="cid!=null and cid!=''">cid,</if>
+            <if test="status!=null and status!=''">status,</if>
+            <if test="created!=null and created!=''">created,</if>
+            <if test="updated!=null and updated!=''">updated,</if>
+        </trim>
+    </sql>
+    <sql id="insertValue">
+        <trim suffixOverrides=",">
+            <if test="id!=null and id!=''">#{id},</if>
+            <if test="title!=null and title!=''">#{title},</if>
+            <if test="sellPoint!=null and sellPoint!=''">#{sellPoint},</if>
+            <if test="price!=null and price!=''">#{price},</if>
+            <if test="num!=null and num!=''">#{num},</if>
+            <if test="barcode!=null and barcode!=''">#{barcode},</if>
+            <if test="image!=null and image!=''">#{image},</if>
+            <if test="cid!=null and cid!=''">#{cid},</if>
+            <if test="status!=null and status!=''">#{status},</if>
+            <if test="created!=null and created!=''">#{created},</if>
+            <if test="updated!=null and updated!=''">#{updated},</if>
+        </trim>
+    </sql>
+    <!--引入两个sql片段-->
+    <insert id="insertTbTtem_trim" parameterType="com.syun.pojo.TbItem">
+        insert into tb_item
+        (<include refid="insertKey"/>) values (<include refid="insertValue"/>)
+    </insert>
+
+    <!--普通插入-->
+    <insert id="insertTbTtem">
+        insert into tb_item
+        (id,title,sell_point,price,num,barcode,image,cid,status,created,updated)
+        values
+        (#{id},#{title},#{sellPoint} ,#{price},#{num},#{barcode},#{image},#{cid},#{status},#{created},#{updated})
+    </insert>
+
+    <!--查询动态sql之foreach-->
+    <!--
+		collection:要遍历的集合
+		item:当前正在遍历的对象的变量名
+		open:开始遍历
+		close:结束便利
+		index:下标
+		separator:分割
+	 -->
+    <select id="selectByForeach" resultType="com.syun.pojo.TbItem">
+        select * from tb_item
+        where id in
+        <foreach collection="list" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
+    <!--删除 动态sql之foreach-->
+    <delete id="deleteByForeach">
+        delete from tb_item
+        where id in
+        <foreach collection="list" item="ids" index="index" open="(" separator="," close=")" >
+            #{ids}
+        </foreach>
+    </delete>
+
+    <!--使用map查询 将查询信息直接封装进map,这样入参可以不用写 parameterType="" -->
+    <select id="queryByMap" resultMap="BaseResultMap">
+        select * from tb_item
+        <where>
+            <if test="queryVo.sellPoint!=null and queryVo.sellPoint!=''">and sell_point like "%"#{queryVo.sellPoint}"%"</if>
+            <if test="queryVo.title!=null and queryVo.title!=''">and title like "%"#{queryVo.title}"%"</if>
+        </where>
+    </select>
+</mapper>

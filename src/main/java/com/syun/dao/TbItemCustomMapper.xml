@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syun.dao.TbItemCustomMapper">
+
+    <!--解决查询出来时pojo与数据库字段不一致问题 这是第二种方式-->
+    <resultMap id="BaseResultMap" type="com.syun.pojo.TbItem">
+        <result column="sell_point" property="sellPoint" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--定义一个sql片段-->
+    <sql id="Base_Column_List">
+		i.id,i.title,i.sell_point as sellPoint ,i.price,i.num,i.barcode,i.image,i.cid,i.status,
+		case i.status
+        WHEN  1 THEN '正常'
+        WHEN  2 THEN '下架'
+        WHEN  3 THEN '删除'
+        ELSE '未知'
+        END AS statusName,c.name as catName
+	</sql>
+
+    <select id="selectByCustomById" parameterType="java.lang.Long" resultType="TbItemCustom">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_item i left join tb_item_cat c
+        ON i.cid=c.id
+        where i.id=#{id}
+    </select>
+</mapper>
