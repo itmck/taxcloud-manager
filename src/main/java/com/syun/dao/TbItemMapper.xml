@@ -3,7 +3,9 @@
 <mapper namespace="com.syun.dao.TbItemMapper">
 
 
-    <!--如果数据库中的字段与封装的字段不一致,可以使用resultMap来配置,如下.或者直接使用 as 改变-->
+    <!--如果数据库中的字段与封装的字段不一致,可以使用resultMap来配置,如下.或者直接使用 as 改变
+            其实这两种都不需要写.第三种,在mybatis-config.xml中开启驼峰命名映射
+    -->
     <!--解决查询出来时pojo与数据库字段不一致问题 这是第二种方式-->
     <resultMap id="BaseResultMap" type="com.syun.pojo.TbItem">
         <result column="sell_point" property="sellPoint" jdbcType="VARCHAR"/>
