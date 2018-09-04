@@ -165,6 +165,9 @@
 		close:结束便利
 		index:下标
 		separator:分割
+		如果参数为数组，collection需设置为array,
+        如果参数为集合如List，则collection需设置为list,
+        如果是POJO，则collection需设为POJO的属性。
 	 -->
     <select id="selectByForeach" resultType="com.syun.pojo.TbItem">
         select * from tb_item
