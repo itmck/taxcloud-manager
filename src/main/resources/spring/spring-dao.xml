@@ -8,6 +8,11 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
     ">
+
+
+    <!--扫描DAO层的注解类,以下注解是为了扫描这个注解：@Repository-->
+    <context:component-scan base-package="com.syun.dao"/>
+
     <!--配置数据库连接文件-->
     <context:property-placeholder location="classpath:db.properties"/>
     <!--配置数据源,将数据源放入druid连接池.所有pom文件需要添加druid相关依赖-->
@@ -21,7 +26,7 @@
         <property name="defaultAutoCommit" value="false"/>
     </bean>
 
-    <!--配置会话工厂-->
+    <!--配置会话工厂 获取sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--属性注入数据源-->
         <property name="dataSource" ref="dataSource"/>
@@ -29,19 +34,15 @@
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
     </bean>
 
-    <!--配置扫描DAO接口-->
+    <!--配置扫描DAO接口 就是扫描mapper-->
     <!--MapperScannerConfigurer和SqlSessionFactoryBean都是来自于mybatis-spring.jar-->
     <!--MapperScannerConfigurer，这个类就是你不写DAO接口实现类的原因-->
     <!--bean时，什么时候需要些id属性？ 如果这个bean定义好了以后需要在别的地方被引用就需要添加id属性-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--注入会话工厂-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <!--注入DAO层所在包的基础路径-->
+        <!--注入DAO层所在包的基础路径 扫描的就是这个包下的mapper-->
         <property name="basePackage" value="com.syun.dao"/>
     </bean>
-
-    <!--扫描DAO层的注解类,以下注解是为了扫描这个注解：@Repository-->
-    <context:component-scan base-package="com.syun.dao"/>
-
 
 </beans>

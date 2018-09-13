@@ -6,9 +6,10 @@
 
     <settings>
         <!-- 开启驼峰命名转换   seckill_id====>seckillId -->
+        <!--设置此项后,可以不用在mapper.xml中配置resultMap映射-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-
     </settings>
+
     <!--配置别名 可以不进行配置此项
         配置此项目的,可以不使用类的全限定名,而是直接使用类的名字(忽略首字母大小写)
     -->

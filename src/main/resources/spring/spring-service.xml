@@ -16,7 +16,9 @@
         <!--属性注入数据源-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!--注解方式声明式事务第二步-->
+
+    <!--需要配置aop以及事务下,在下面配置即可-->
+    <!--注解方式声明式事务第二步(开启事务注解驱动)-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
