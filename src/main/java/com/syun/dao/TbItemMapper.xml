@@ -68,7 +68,7 @@
         <set>
             <if test="title!=null and title!=''">title=#{title},</if>
             <if test="sellPoint!=null and sellPoint!=''">sell_point=#{sellPoint},</if>
-            <if test="price!=null and price!=''">price=#{price},</if>
+          <!--  <if test="price!=null and price!=''">price=#{price},</if>-->
             <if test="num!=null and num!=''">num=#{num},</if>
             <if test="barcode!=null and barcode!=''">barcode=#{barcode},</if>
             <if test="image!=null and image!=''">image=#{image},</if>
@@ -103,7 +103,7 @@
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
             <if test="title!=null and title!=''">title=#{title},</if>
             <if test="sellPoint!=null and sellPoint!=''">sell_point=#{sellPoint},</if>
-            <if test="price!=null and price!=''">price=#{price},</if>
+         <!--   <if test="price!=null and price!=''">price=#{price},</if>-->
             <if test="num!=null and num!=''">num=#{num},</if>
             <if test="barcode!=null and barcode!=''">barcode=#{barcode},</if>
             <if test="image!=null and image!=''">image=#{image},</if>
