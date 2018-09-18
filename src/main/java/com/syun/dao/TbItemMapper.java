@@ -36,4 +36,7 @@ public interface TbItemMapper {
     int deleteByForeach(List<Long> ids);
     //使用传入map去查询,适用于 多个参数的问题,这样不用写 @param
     List<TbItem> queryByMap(Map<String,Object> map);
+
+    //使用传入map去查询,适用于 多个参数的问题,这样不用写 @param
+    List<TbItem> queryByMap2(Map<String,Object> map);
 }

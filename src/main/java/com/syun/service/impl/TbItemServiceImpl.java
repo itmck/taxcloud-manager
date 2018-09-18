@@ -3,6 +3,7 @@ package com.syun.service.impl;
 import com.syun.dao.TbItemMapper;
 import com.syun.pojo.QueryVo;
 import com.syun.pojo.TbItem;
+import com.syun.service.TbItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * @Version: 1.0
  */
 @Service
-public class TbItemService implements com.syun.service.TbItemService {
+public class TbItemServiceImpl implements TbItemService {
 
     @Autowired
     private TbItemMapper tbItemMapper;
@@ -152,9 +153,10 @@ public class TbItemService implements com.syun.service.TbItemService {
     public List<TbItem> selectByMap(QueryVo queryVo) {
 
         Map<String, Object> map = new HashMap<>();
-//        map.put("sellPoint",queryVo.getSellPoint());
-//        map.put("title",queryVo.getTitle());
-        map.put("queryVo", queryVo);
-        return tbItemMapper.queryByMap(map);
+        map.put("sellPoint",queryVo.getSellPoint());
+        map.put("title",queryVo.getTitle());
+        return tbItemMapper.queryByMap2(map);
+//        map.put("queryVo", queryVo);
+//        return tbItemMapper.queryByMap(map);
     }
 }
