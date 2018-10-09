@@ -32,6 +32,9 @@ public class ResultMsg {
      */
     private Object data;
 
+    public ResultMsg() {
+        super();
+    }
 
     public ResultMsg(Integer status, String statusMessage) {
         this.status = status;
