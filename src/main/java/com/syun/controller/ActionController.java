@@ -1,5 +1,7 @@
 package com.syun.controller;
 
+import com.syun.commons.BaseController;
+import com.syun.commons.vo.ResultMsg;
 import com.syun.pojo.QueryVo;
 import com.syun.pojo.TbItem;
 import com.syun.service.TbItemService;
@@ -22,7 +24,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/tb")
-public class ActionController {
+public class ActionController extends BaseController {
 
     @Autowired
     private TbItemService tbItemService;
@@ -264,5 +266,22 @@ public class ActionController {
         }
 
         return map;
+    }
+    /**
+     *
+     * 查询使用map封装 fangshi2
+     * @return
+     */
+    @RequestMapping("/selectByM2")
+    @ResponseBody
+    public ResultMsg selectByMap2(@RequestBody  QueryVo queryVo) {
+        try {
+            List<TbItem> i = tbItemService.selectByMap(queryVo);
+            return new ResultMsg(SUCCESS,i);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultMsg(FAIL,"失败");
+        }
+
     }
 }

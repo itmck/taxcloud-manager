@@ -6,43 +6,70 @@ package com.syun.commons.vo;
  * @Description:
  * @Version: 1.0
  */
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+/**
+ * 前端的同事要求说尽量不要有null，可有为空串“” 或者 0 或者 []， 但尽量不要null。
+ * 所以@JsonInclude(Include.NON_NULL) 这个注解放在类头上就可以解决。
+ * 实体类与json互转的时候 属性值为null的不参与序列化
+ *
+ */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultMsg {
 
-    private String key;
-    private Object obj;
-    private String msg;
+    /**
+     * 状态
+     */
+    private Integer status;
 
-    public String getKey() {
-        return key;
+    /**
+     * 状态消息
+     */
+    private String statusMessage;
+
+    /**
+     * 返回数据
+     */
+    private Object data;
+
+
+    public ResultMsg(Integer status, String statusMessage) {
+        this.status = status;
+        this.statusMessage = statusMessage;
     }
 
-    public ResultMsg(String key, Object obj) {
-        this.key = key;
-        this.obj = obj;
+    public ResultMsg(Integer status, Object data) {
+        this.status = status;
+        this.data = data;
     }
 
-    public ResultMsg(String key, String msg) {
-        this.key = key;
-        this.msg = msg;
+    public ResultMsg(Integer status, String statusMessage, Object data) {
+        this.status = status;
+        this.statusMessage = statusMessage;
+        this.data = data;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public Integer getStatus() {
+        return status;
     }
 
-    public Object getObj() {
-        return obj;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setObj(Object obj) {
-        this.obj = obj;
+    public String getStatusMessage() {
+        return statusMessage;
     }
 
-    public String getMsg() {
-        return msg;
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }
