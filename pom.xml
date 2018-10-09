@@ -170,11 +170,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.46</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty.orbit</groupId>
-            <artifactId>javax.servlet</artifactId>
-            <version>3.0.0.v201112011016</version>
-        </dependency>
     </dependencies>
 
     <build>
