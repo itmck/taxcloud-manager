@@ -1,6 +1,6 @@
 package com.syun.controller;
 
-import com.syun.commons.BaseController;
+import com.syun.commons.common.BaseController;
 import com.syun.commons.vo.ResultMsg;
 import com.syun.pojo.QueryVo;
 import com.syun.pojo.TbItem;
