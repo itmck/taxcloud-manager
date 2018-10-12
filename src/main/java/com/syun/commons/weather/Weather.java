@@ -33,7 +33,7 @@ public class Weather {
             URL url = new URL(apiUrl);
             URLConnection open = url.openConnection();
             InputStream input = open.getInputStream();
-           // return IOUtils.toString(input, "utf-8");//使用工具类转码
+           // return IOUtilsDemo.toString(input, "utf-8");//使用工具类转码
             return convertStreamToString(input);
         } catch (IOException e) {
             e.printStackTrace();
