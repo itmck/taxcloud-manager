@@ -1,4 +1,4 @@
-package com.itmc.enumeration_iterator;
+package com.syun.commons.mytest.iteator;
 
 import java.util.Enumeration;
 import java.util.Hashtable;

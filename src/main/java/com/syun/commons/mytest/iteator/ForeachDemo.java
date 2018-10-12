@@ -1,6 +1,9 @@
-package com.itmc.enumeration_iterator;
+package com.syun.commons.mytest.iteator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Create by it_mck 2018/10/12 16:30
