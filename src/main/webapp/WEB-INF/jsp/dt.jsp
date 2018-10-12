@@ -11,7 +11,6 @@
     <title>地图展示</title>
 </head>
 <body>
-${j},${w}
 <div id="allmap"></div>
 </body>
 </html>
@@ -27,6 +26,6 @@ ${j},${w}
             BMAP_NORMAL_MAP,
             BMAP_HYBRID_MAP
         ]}));
-    map.setCurrentCity("合肥");          // 设置地图显示的城市 此项是必须设置的
+    map.setCurrentCity(${city});          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 </script>

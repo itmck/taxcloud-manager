@@ -21,6 +21,7 @@ public class MapController {
     public String mapIndex(Map<String, Object> map){
         map.put("j",117.282);
         map.put("w",31.866);
+        map.put("city","合肥");
         return "dt";
     }
     @RequestMapping("dt2")
