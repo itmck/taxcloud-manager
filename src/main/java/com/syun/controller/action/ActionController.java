@@ -1,4 +1,4 @@
-package com.syun.controller;
+package com.syun.controller.action;
 
 import com.syun.commons.common.BaseController;
 import com.syun.commons.vo.ResultMsg;

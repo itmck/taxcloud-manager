@@ -1,4 +1,4 @@
-package com.syun.commons.mytest;
+package com.syun.commons.mytest.adapterClass;
 
 /**
  * Create by it_mck 2018/10/9 17:32

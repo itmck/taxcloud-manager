@@ -1,4 +1,4 @@
-package com.syun.controller;
+package com.syun.controller.action;
 
 import com.syun.pojo.TbItem;
 import com.syun.service.TbItemServiceAnno;
