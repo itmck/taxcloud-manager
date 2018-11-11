@@ -14,6 +14,10 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
     <!--扫描web层的注解类,以下注解是为了扫描这个注解：@Controller-->
+    <!--其实注解扫描就是相当于扫描到注解下相应的实体类,然后交给spring管理
+        和直接在xml中使用<bean class="XXX" id="XXX"/>声明一样
+        最后在使用的时候,可以直接使用@Autowrite进行注入即可
+        -->
     <context:component-scan base-package="com.syun.controller"/>
    <!--springmvc注解驱动-->
     <mvc:annotation-driven/>

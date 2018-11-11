@@ -2,6 +2,7 @@ package com.syun.commons.jedis;
 
 import redis.clients.jedis.JedisCluster;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public class JedisClientCluster implements JedisClient {
 
+    @Resource
     private JedisCluster  jedisCluster;
 
     public JedisCluster getJedisCluster() {
